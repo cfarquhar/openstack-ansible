@@ -85,7 +85,7 @@
 - name: os_nova
   scm: git
   src: http://git.openstack.org/openstack/openstack-ansible-os_nova
-  version: 385f89cfbad6f696ae462ae563c5b9b5a30a8bcd
+  version: 9f320c0de991d39f52ffa1fa030a6a86b11cd12c
 # os_swift is a custom fork that includes swift3 middleware support
 # HEAD of feature/stable/mitaka/support-swift3-middleware
 - name: os_swift
