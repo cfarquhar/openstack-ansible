@@ -22,11 +22,13 @@ set -e -u -x
 ## Vars ----------------------------------------------------------------------
 export HTTP_PROXY=${HTTP_PROXY:-""}
 export HTTPS_PROXY=${HTTPS_PROXY:-""}
-export ANSIBLE_GIT_RELEASE=${ANSIBLE_GIT_RELEASE:-"v1.9.4-1"}
+export ANSIBLE_GIT_RELEASE=${ANSIBLE_GIT_RELEASE:-"819c51cd807061845ad5db9c5aaa8e05a623939b"} #HEAD of stable-1.9 on 10/29/16
 export ANSIBLE_GIT_REPO=${ANSIBLE_GIT_REPO:-"https://github.com/ansible/ansible"}
 export ANSIBLE_ROLE_FILE=${ANSIBLE_ROLE_FILE:-"ansible-role-requirements.yml"}
 export ANSIBLE_WORKING_DIR=${ANSIBLE_WORKING_DIR:-/opt/ansible_${ANSIBLE_GIT_RELEASE}}
 export SSH_DIR=${SSH_DIR:-"/root/.ssh"}
+# Set the location of the constraints to use for all pip installations
+export UPPER_CONSTRAINTS_FILE=${UPPER_CONSTRAINTS_FILE:-"http://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?id=$(awk '/requirements_git_install_branch:/ {print $2}' playbooks/defaults/repo_packages/openstack_services.yml)"}
 export DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-"noninteractive"}
 # Set the role fetch mode to any option [galaxy, git-clone]
 export ANSIBLE_ROLE_FETCH_MODE=${ANSIBLE_ROLE_FETCH_MODE:-galaxy}
@@ -101,6 +103,8 @@ if [ -f "requirements.txt" ];then
 fi
 
 # Install ansible
+PIP_OPTS+=" --constraint global-requirement-pins.txt --constraint ${UPPER_CONSTRAINTS_FILE}"
+
 # When upgrading there will already be a pip.conf file locking pip down to the repo server, in such cases it may be
 # necessary to use --isolated because the repo server does not meet the specified requirements.
 $PIP_COMMAND install $PIP_OPTS "${ANSIBLE_WORKING_DIR}" || $PIP_COMMAND install --isolated $PIP_OPTS "${ANSIBLE_WORKING_DIR}"
