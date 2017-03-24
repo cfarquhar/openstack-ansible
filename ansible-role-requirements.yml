@@ -100,11 +100,13 @@
   scm: git
   src: https://github.com/dani4571/openstack-ansible-os_tempest
   version: 1901bc600ed1adeb97a51cae06396dc6f879baa3
+# plugins is a custom fork to patch EOL mitaka.  See https://github.com/cfarquhar/openstack-ansible-openstack_openrc/commit/0ff1258
+# I think this will go away once we move to newton.
 - name: plugins
   path: /etc/ansible
   scm: git
-  src: http://git.openstack.org/openstack/openstack-ansible-plugins
-  version: 6fd7a88711bd2625185547d143271a0972e95e7a
+  src: http://github.com/cfarquhar/openstack-ansible-openstack_openrc
+  version: mitaka_20170324a
 - name: rabbitmq_server
   scm: git
   src: http://git.openstack.org/openstack/openstack-ansible-rabbitmq_server
