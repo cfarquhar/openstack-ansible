@@ -105,8 +105,8 @@
 - name: plugins
   path: /etc/ansible
   scm: git
-  src: http://github.com/cfarquhar/openstack-ansible-openstack_openrc
-  version: 0ff12583a3d0d63220411ec4f7c51a4609302383
+  src: http://github.com/cfarquhar/openstack-ansible-plugins
+  version: aa9f283b0ae5db58726d68eb7b7dd481cca61610
 - name: rabbitmq_server
   scm: git
   src: http://git.openstack.org/openstack/openstack-ansible-rabbitmq_server
